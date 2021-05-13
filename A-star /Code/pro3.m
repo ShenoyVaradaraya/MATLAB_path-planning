@@ -1,5 +1,3 @@
-%% Anirudh Topiwala (UID: 115192386)
-%% Project 3. (part 2)- Vrep
 % Implementation of A Star Algorithm on Obstacle Space of Project 3
 % integrated with Vrep. Planning without Differential Constraints
 
@@ -10,7 +8,7 @@ clc;clear all;close all;
 disp('Program started');
 vrep=remApi('remoteApi'); % using the prototype file (remoteApiProto.m)
 vrep.simxFinish(-1); % just in case, close all opened connections
-clientID=vrep.simxStart('127.0.0.1',19997,true,true,5000,5);
+clientID=vrep.simxStart('127.0.0.1',19999,true,true,5000,5);
 
 %% Checking For Connection
  if (clientID>-1)
@@ -25,9 +23,9 @@ clientID=vrep.simxStart('127.0.0.1',19997,true,true,5000,5);
         %% Calling A-star for path Planning
          % Getting Initial position of turtlebot from vrep environment
          [~,pos]=vrep.simxGetObjectPosition(clientID, bot,dummy,vrep.simx_opmode_blocking);
-         
+         init_pos = pos;
          % Setting resolution for node generation. 
-         resolution=0.75;
+         resolution=0.5;
          % Getting Path
          tic
          path= project3withoutdiffconstraints(pos(1), pos(2), resolution);
@@ -102,18 +100,17 @@ clientID=vrep.simxStart('127.0.0.1',19997,true,true,5000,5);
          k=1;
          disp('Moving Forward');tempdist=inf;
 %         [ r13, ts(ls)]=vrep.simxGetFloatSignal( clientID,'Turtlebot2_simulation_time',vrep.simx_opmode_blocking);ls=ls+1;
-
          while(k==1)
-              dist= sqrt((pos(1)-path(i,1)).^2 + (pos(2)-path(i,2)).^2);
-              disp(dist);
-              if(dist< 0.5 || abs(dist) - 1e-3>abs(tempdist))
+              dist_ele= sqrt((pos(1)-path(i,1)).^2 + (pos(2)-path(i,2)).^2);
+              disp(dist_ele);
+              if(dist_ele< 0.5 || abs(dist_ele) - 1e-3>abs(tempdist))
                   break;
               end
                [r5]=vrep.simxSetJointTargetVelocity( clientID,lmotor, w,vrep.simx_opmode_blocking);  
                [r6]=vrep.simxSetJointTargetVelocity( clientID,rmotor, w,vrep.simx_opmode_blocking); 
        
                [r10,pos]=vrep.simxGetObjectPosition(clientID, bot,dummy,vrep.simx_opmode_blocking);
-                tempdist=dist; 
+                tempdist=dist_ele; 
          end
          [~,theta]=vrep.simxGetObjectOrientation(clientID, bot,dummy,vrep.simx_opmode_blocking);
          vel=[vel;diffconstraints(w,w,theta(3))];
@@ -128,12 +125,28 @@ clientID=vrep.simxStart('127.0.0.1',19997,true,true,5000,5);
          disp('End Point Reached');
         
          %% Make Text File
-         maketext(vel,t);
+         %maketext(vel,t);
+         
          %% End Connection with Vrep
         vrep.simxFinish(-1);
  else
         disp('Failed connecting to remote API server');
  end
- 
 vrep.delete(); 
+t = zeros(1,l-1);
+for i = 1:l-1 
+    t(i) = i;
+end
+figure;
+hold on
+plot(t',vel(:,1))
+plot(t',vel(:,2))
+grid on 
+
+figure;
+hold on
+plot(t',gradient(vel(:,1)))
+plot(t',gradient(vel(:,2)))
+grid on 
+
 

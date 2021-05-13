@@ -14,7 +14,7 @@ function simpleTest()
     % sim=remApi('remoteApi','extApi.h'); % using the header (requires a compiler)
     sim=remApi('remoteApi'); % using the prototype file (remoteApiProto.m)
     sim.simxFinish(-1); % just in case, close all opened connections
-    clientID=sim.simxStart('127.0.0.1',19997,true,true,5000,5);
+    clientID=sim.simxStart('127.0.0.1',19999,true,true,5000,5);
 
     if (clientID>-1)
         disp('Connected to remote API server');

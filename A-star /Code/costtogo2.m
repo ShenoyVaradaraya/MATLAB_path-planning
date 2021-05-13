@@ -1,5 +1,3 @@
-%% Anirudh Topiwala (UID: 115192386)
-%% Project 3. (part 2)
 function [c2g] = costtogo2(x,y,xgoal,ygoal)
 % This function is used to calculate cost to go
 
