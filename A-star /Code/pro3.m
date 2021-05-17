@@ -1,4 +1,4 @@
-% Implementation of A Star Algorithm on Obstacle Space of Project 3
+% Implementation of A Star Algorithm on Obstacle Space 
 % integrated with Vrep. Planning without Differential Constraints
 
 %Clearing Variables
@@ -133,6 +133,7 @@ clientID=vrep.simxStart('127.0.0.1',19999,true,true,5000,5);
         disp('Failed connecting to remote API server');
  end
 vrep.delete(); 
+
 t = zeros(1,l-1);
 for i = 1:l-1 
     t(i) = i;
@@ -141,12 +142,20 @@ figure;
 hold on
 plot(t',vel(:,1))
 plot(t',vel(:,2))
+title('Velocity Profile')
+xlabel('Time')
+ylabel('Velocity')
+legend('Velocity in x-axis', 'Velocity in y-axis')
 grid on 
 
 figure;
 hold on
 plot(t',gradient(vel(:,1)))
 plot(t',gradient(vel(:,2)))
+title('Acceleration Profile')
+xlabel('Time')
+ylabel('Acceleration')
+legend('Acceleration in x-axis', 'Acceleration in y-axis')
 grid on 
 
 
