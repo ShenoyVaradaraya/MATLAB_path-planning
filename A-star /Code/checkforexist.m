@@ -1,5 +1,3 @@
-%% Anirudh Topiwala (UID: 115192386)
-%% Project 3. (part 2)- Vrep
 function [exist]= checkforexist(x,y,resolution)
 % x=x-1;y=y-1;
 % This is function is used to check if the point (x,y) is inside the valid

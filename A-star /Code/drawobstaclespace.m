@@ -1,5 +1,3 @@
-%% Anirudh Topiwala (UID: 115192386)
-%% Project 3. (part 2)- Vrep
 function [] = drawobstaclespace()
 
  %% Draw GUI = World space with Obstacles

@@ -35,6 +35,9 @@ end
 % xstart=2; ystart=2; xgoal=5;ygoal=5;
 
 rectangle('Position',[xgoal ygoal resolution resolution ], 'FaceColor','blue','EdgeColor','k');
+total_distance = sqrt((xgoal-xstart).^2 + (ygoal-ystart).^2);
+X = ['The total distance -- ', num2str(total_distance)];
+disp(X)
 %% Initialize
 open= [xstart,ystart]; % X,Y positions of nodes in Open List
 X=[xstart,ystart];  % X,Y positions of all possible nodes Explored.

@@ -1,12 +1,10 @@
-%% Anirudh Topiwala (UID: 115192386)
-%% Project 3. (part 2)- Vrep
 function [ ]= maketext(vel,t)
 % This function is used to split the time taken from vrep simulation to
 % duplicate velocities with a calculated minimum time period. This is done
 % because time in vrep runs differently from time in matlab.
 
-% load('vel.mat')
-% load('t.mat')
+load('vel.mat')
+load('t.mat')
 
 %% Forming time variable, to get how long setting orientation or setting position is taking
 vel(1,:)=[];

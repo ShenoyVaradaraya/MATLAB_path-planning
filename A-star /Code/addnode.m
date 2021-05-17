@@ -1,5 +1,3 @@
-%% Anirudh Topiwala (UID: 115192386)
-%% Project 3. (part 2)- Vrep
 function [X,Pnode,ncount,pcount,open,cost,c2c,c]=addnode(xy,X,closelist,Pnode,xgoal,ygoal,ncount,c2ccount,count,pcount,nodenum,open,cost,c2c,c,resolution)
 % This function is used to add node depending upon conditions listed
 
